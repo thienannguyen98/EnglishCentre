@@ -16,8 +16,8 @@ namespace English2.Views.giaoVien
     public partial class gv_Chat : Form
     {
         private TcpClient client;
-        public StreamReader STR;
-        public StreamWriter STW; //Người gửi nó gửi cái gì lưu vô Writer vô -------> truyền qua ->>>>>>> Read ra
+        public StreamReader STR; //Recieve the message -> Read from the Stream
+        public StreamWriter STW; //Sending Message -> Write to Stream 
         public string Recieve;
         public string TextToSend;
         public string MyText;
@@ -26,6 +26,7 @@ namespace English2.Views.giaoVien
             InitializeComponent();
             label1.Text = fMain.username;
 
+            //GET local IP
             IPAddress[] localIP = Dns.GetHostAddresses(Dns.GetHostName());
             foreach (IPAddress address in localIP)
             {
@@ -51,6 +52,7 @@ namespace English2.Views.giaoVien
         {
             try
             {
+                //Start listener 
                 TcpListener listener = new TcpListener(IPAddress.Any, int.Parse(ServerPort.Text));
                 listener.Start();
                 client = listener.AcceptTcpClient();
